@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vansh Rawat — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #050508;
+  --bg2: #09090f;
+  --surface: #0f0f18;
+  --card: #13131e;
+  --border: #1c1c2e;
+  --accent: #4f8ef7;
+  --accent2: #00d4aa;
+  --text: #e2e2f0;
+  --muted: #52526e;
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed; pointer-events: none;
+  z-index: 9999; transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s, transform 0.15s;
+  opacity: 0;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid #4f8ef755;
+  border-radius: 50%;
+  position: fixed; pointer-events: none;
+  z-index: 9998; transform: translate(-50%, -50%);
+  transition: width 0.25s, height 0.25s, border-color 0.25s, transform 0.15s;
+  opacity: 0;
+}
+
+/* Noise overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.4;
+}
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 60px;
+  background: #05050880;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid #ffffff08;
+}
+.nav-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 500;
+  color: var(--accent); letter-spacing: 2px;
+}
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  letter-spacing: 1px; text-transform: uppercase; font-weight: 500;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--accent);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 10px 22px;
+  border: 1px solid var(--accent); color: var(--accent);
+  background: transparent; border-radius: 4px;
+  text-decoration: none; transition: all 0.25s;
+}
+.nav-cta:hover { background: var(--accent); color: #fff; }
+
+/* Hero */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 60px 80px;
+  position: relative; z-index: 1;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+.hero-left {}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--accent2); letter-spacing: 2px;
+  border: 1px solid #00d4aa22; padding: 6px 14px; border-radius: 2px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+.tag-dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+
+.hero-name {
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 800; color: var(--white);
+  line-height: 1.05; letter-spacing: -1px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero-name .accent { color: var(--accent); }
+.hero-role {
+  font-size: 18px; color: var(--muted); font-weight: 400;
+  margin-top: 16px; line-height: 1.5;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.hero-role strong { color: var(--text); font-weight: 500; }
+.hero-desc {
+  font-size: 15px; color: #4a4a6a; line-height: 1.8;
+  margin-top: 20px; max-width: 440px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.hero-actions {
+  display: flex; gap: 14px; margin-top: 36px;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.btn-primary {
+  padding: 14px 32px; background: var(--accent);
+  color: #fff; font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  border: none; border-radius: 4px; cursor: pointer;
+  text-decoration: none; transition: all 0.25s;
+  font-family: 'Outfit', sans-serif;
+}
+.btn-primary:hover { background: #3a7de8; transform: translateY(-1px); box-shadow: 0 8px 24px #4f8ef740; }
+.btn-ghost {
+  padding: 14px 32px; background: transparent;
+  color: var(--muted); font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  border: 1px solid var(--border); border-radius: 4px; cursor: pointer;
+  text-decoration: none; transition: all 0.25s;
+}
+.btn-ghost:hover { color: var(--white); border-color: #ffffff30; }
+
+.hero-stats {
+  display: flex; gap: 36px; margin-top: 48px; padding-top: 36px;
+  border-top: 1px solid var(--border);
+  animation: fadeUp 0.6s 0.5s ease both;
+}
+.stat-num { font-size: 28px; font-weight: 800; color: var(--white); }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; letter-spacing: 1px; }
+
+/* Code card */
+.hero-right { animation: fadeUp 0.6s 0.3s ease both; }
+.code-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 24px 60px #00000060;
+}
+.code-header {
+  background: var(--surface); padding: 14px 18px;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.code-dot { width: 10px; height: 10px; border-radius: 50%; }
+.d1 { background: #ff5f57; }
+.d2 { background: #febc2e; }
+.d3 { background: #28c840; }
+.code-filename { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); margin-left: 8px; }
+.code-body { padding: 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 2; }
+.c-comment { color: #3a3a5c; }
+.c-key { color: #4f8ef7; }
+.c-str { color: #00d4aa; }
+.c-val { color: #e2a05a; }
+.c-fn { color: #c792ea; }
+.c-indent { padding-left: 20px; }
+.c-indent2 { padding-left: 40px; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Section styles */
+section { position: relative; z-index: 1; }
+.section-wrap { max-width: 1200px; margin: 0 auto; padding: 100px 60px; }
+.section-header { margin-bottom: 56px; }
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--accent); letter-spacing: 3px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800; color: var(--white); line-height: 1.1;
+}
+.section-sub { font-size: 15px; color: var(--muted); margin-top: 12px; max-width: 480px; line-height: 1.6; }
+
+/* Skills */
+#skills { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+@media(max-width:768px){ .skills-grid { grid-template-columns: 1fr; } }
+.skill-block {
+  background: var(--card); padding: 32px;
+  transition: background 0.2s;
+  border: 1px solid transparent;
+}
+.skill-block:hover { background: var(--surface); border-color: var(--border); }
+.skill-icon { font-size: 28px; margin-bottom: 16px; }
+.skill-name { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.skill-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.skill-level {
+  display: flex; align-items: center; gap: 10px; margin-top: 16px;
+}
+.level-bar { flex: 1; height: 2px; background: var(--border); border-radius: 1px; }
+.level-fill { height: 100%; border-radius: 1px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.level-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+
+/* Projects */
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media(max-width:768px){ .projects-grid { grid-template-columns: 1fr; } }
+.project-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 32px;
+  transition: border-color 0.25s, transform 0.25s;
+  position: relative; overflow: hidden;
+}
+.project-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.project-card:hover { border-color: #4f8ef730; transform: translateY(-4px); }
+.project-card:hover::before { transform: scaleX(1); }
+.project-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+@media(max-width:768px){ .project-card.featured { grid-column: auto; grid-template-columns: 1fr; } }
+.proj-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px; display: inline-block; margin-bottom: 14px;
+}
+.tag-blue { background: #4f8ef715; color: var(--accent); border: 1px solid #4f8ef730; }
+.tag-green { background: #00d4aa15; color: var(--accent2); border: 1px solid #00d4aa30; }
+.tag-amber { background: #e2a05a15; color: #e2a05a; border: 1px solid #e2a05a30; }
+.proj-title { font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+.proj-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.proj-techs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.tech-pill { font-size: 11px; padding: 4px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 3px; color: #666; }
+.proj-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 20px; font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none; letter-spacing: 1px;
+  text-transform: uppercase; transition: gap 0.2s;
+}
+.proj-link:hover { gap: 10px; }
+
+/* About */
+#about { background: var(--bg); }
+.about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+@media(max-width:768px){ .about-grid { grid-template-columns: 1fr; } }
+.about-visual {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 36px;
+  position: sticky; top: 100px;
+}
+.av-name { font-size: 22px; font-weight: 800; color: var(--white); }
+.av-title { font-size: 13px; color: var(--accent); margin-top: 4px; letter-spacing: 1px; }
+.av-divider { height: 1px; background: var(--border); margin: 20px 0; }
+.av-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #1c1c2e50; }
+.av-row-label { font-size: 12px; color: var(--muted); }
+.av-row-val { font-size: 13px; color: var(--text); font-weight: 500; }
+.av-status { display: flex; align-items: center; gap: 6px; }
+.status-dot { width: 7px; height: 7px; background: var(--accent2); border-radius: 50%; animation: pulse 2s infinite; }
+
+.about-content {}
+.about-para { font-size: 15px; color: #7070a0; line-height: 1.9; margin-bottom: 20px; }
+.about-para strong { color: var(--text); font-weight: 600; }
+.timeline-items { margin-top: 36px; }
+.tl-item { display: flex; gap: 20px; padding-bottom: 28px; position: relative; }
+.tl-item::before {
+  content: ''; position: absolute; left: 15px; top: 30px; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.tl-item:last-child::before { display: none; }
+.tl-dot {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0; position: relative; z-index: 1;
+}
+.tl-body {}
+.tl-year { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.tl-title { font-size: 15px; font-weight: 700; color: var(--white); }
+.tl-sub { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+
+/* Contact */
+#contact { background: var(--bg2); border-top: 1px solid var(--border); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+@media(max-width:768px){ .contact-grid { grid-template-columns: 1fr; } }
+.contact-left p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.contact-link {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 8px;
+  text-decoration: none; transition: border-color 0.2s, transform 0.2s;
+}
+.contact-link:hover { border-color: #4f8ef740; transform: translateX(4px); }
+.cl-icon { font-size: 18px; }
+.cl-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.cl-val { font-size: 14px; color: var(--text); font-weight: 500; margin-top: 2px; }
+
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-field { display: flex; flex-direction: column; gap: 8px; }
+.form-field label { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+.form-field input, .form-field textarea {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text); padding: 14px 18px; border-radius: 6px;
+  font-size: 14px; font-family: 'Outfit', sans-serif;
+  transition: border-color 0.2s; outline: none; resize: none;
+}
+.form-field input:focus, .form-field textarea:focus { border-color: #4f8ef750; }
+.form-field textarea { min-height: 120px; }
+.form-submit {
+  padding: 16px 32px; background: var(--accent);
+  color: #fff; font-size: 13px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  border: none; border-radius: 6px; cursor: pointer;
+  font-family: 'Outfit', sans-serif; transition: all 0.25s;
+}
+.form-submit:hover { background: #3a7de8; transform: translateY(-1px); }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 60px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--muted);
+  position: relative; z-index: 1;
+}
+.footer-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Responsive */
+@media(max-width: 900px) {
+  nav { padding: 18px 24px; }
+  .nav-links { display: none; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-right { display: none; }
+  #hero { padding: 120px 24px 60px; }
+  .section-wrap { padding: 70px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 10px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor" style="width:10px;height:10px;background:#4f8ef7;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:999999;transform:translate(-50%,-50%);transition:width 0.2s,height 0.2s,background 0.2s,transform 0.15s;opacity:0;will-change:left,top;"></div>
+<div id="cursorRing" style="width:36px;height:36px;border:1.5px solid rgba(79,142,247,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:999998;transform:translate(-50%,-50%);opacity:0;will-change:left,top;"></div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">VR.DEV</div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#certifications">Certs</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <div class="tag-dot"></div>
+        Available for Internships · Delhi, India
+      </div>
+      <h1 class="hero-name">
+        Vansh<br/><span class="accent">Rawat.</span>
+      </h1>
+      <p class="hero-role">
+        <strong>AI & Web Developer</strong> · BCA Student at Amity University
+      </p>
+      <p class="hero-desc">
+        Building intelligent automation systems and modern web experiences. Founder of Automyx — an AI automation venture serving Delhi businesses.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-ghost">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Live Projects</div>
+        </div>
+        <div>
+          <div class="stat-num">2nd</div>
+          <div class="stat-label">Year BCA</div>
+        </div>
+        <div>
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Skills Active</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="code-card">
+        <div class="code-header">
+          <div class="code-dot d1"></div>
+          <div class="code-dot d2"></div>
+          <div class="code-dot d3"></div>
+          <div class="code-filename">vansh.config.js</div>
+        </div>
+        <div class="code-body">
+          <div class="c-comment">// Developer Profile</div>
+          <div><span class="c-key">const</span> <span class="c-val">vansh</span> = {</div>
+          <div class="c-indent"><span class="c-key">name</span>: <span class="c-str">"Vansh Rawat"</span>,</div>
+          <div class="c-indent"><span class="c-key">role</span>: <span class="c-str">"AI & Web Developer"</span>,</div>
+          <div class="c-indent"><span class="c-key">university</span>: <span class="c-str">"Amity Online"</span>,</div>
+          <div class="c-indent"><span class="c-key">year</span>: <span class="c-val">2</span>,</div>
+          <div class="c-indent"><span class="c-key">skills</span>: [</div>
+          <div class="c-indent2"><span class="c-str">"HTML/CSS/JS"</span>,</div>
+          <div class="c-indent2"><span class="c-str">"Zapier AI"</span>,</div>
+          <div class="c-indent2"><span class="c-str">"ML Basics"</span>,</div>
+          <div class="c-indent2"><span class="c-str">"Git/GitHub"</span>,</div>
+          <div class="c-indent">],</div>
+          <div class="c-indent"><span class="c-key">venture</span>: <span class="c-str">"Automyx"</span>,</div>
+          <div class="c-indent"><span class="c-key">openTo</span>: <span class="c-str">"Internships"</span>,</div>
+          <div class="c-indent"><span class="c-fn">getHired</span>: () <span class="c-key">=></span> <span class="c-str">"Yes please 🚀"</span></div>
+          <div>};</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">// 02. Technical Arsenal</div>
+      <h2 class="section-title">Skills & Technologies</h2>
+      <p class="section-sub">Hands-on skills built through real projects, not just coursework.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">HTML / CSS / JavaScript</div>
+        <div class="skill-desc">Building responsive, modern web interfaces from scratch. Comfortable with layouts, animations, and DOM manipulation.</div>
+        <div class="skill-level">
+          <div class="level-bar"><div class="level-fill" style="width:75%"></div></div>
+          <div class="level-label">75%</div>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">Zapier & AI Automation</div>
+        <div class="skill-desc">Designing multi-step AI-powered automation workflows. Built production-grade Zaps for real Delhi businesses via Automyx.</div>
+        <div class="skill-level">
+          <div class="level-bar"><div class="level-fill" style="width:82%"></div></div>
+          <div class="level-label">82%</div>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Machine Learning Basics</div>
+        <div class="skill-desc">Understanding of supervised/unsupervised learning, core algorithms (Linear Regression, Decision Trees, K-Means), and the ML pipeline.</div>
+        <div class="skill-level">
+          <div class="level-bar"><div class="level-fill" style="width:50%"></div></div>
+          <div class="level-label">50%</div>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">🐙</div>
+        <div class="skill-name">Git & GitHub</div>
+        <div class="skill-desc">Version control, repository management, and maintaining an active public GitHub profile with documented projects.</div>
+        <div class="skill-level">
+          <div class="level-bar"><div class="level-fill" style="width:65%"></div></div>
+          <div class="level-label">65%</div>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-desc">Core Python programming, scripting, and beginner-level data manipulation with Pandas and NumPy. Actively learning.</div>
+        <div class="skill-level">
+          <div class="level-bar"><div class="level-fill" style="width:40%"></div></div>
+          <div class="level-label">40%</div>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-icon">🎯</div>
+        <div class="skill-name">Prompt Engineering</div>
+        <div class="skill-desc">Writing effective AI prompts for automation, content generation, and client-facing workflows inside Zapier's AI steps.</div>
+        <div class="skill-level">
+          <div class="level-bar"><div class="level-fill" style="width:70%"></div></div>
+          <div class="level-label">70%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">// 03. Selected Work</div>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-sub">Real things built for real use — not just tutorials.</p>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div>
+          <div class="proj-tag tag-blue">Featured Venture</div>
+          <div class="proj-title">Automyx — AI Automation Platform</div>
+          <div class="proj-desc">Founded and operate an AI automation consultancy serving small businesses in Delhi. Design and deploy no-code Zapier workflows that eliminate manual tasks — lead capture pipelines, invoice automation, AI-generated follow-ups, and social scheduling. Every solution is built inside the client's own account and handed over with full documentation.</div>
+          <div class="proj-techs">
+            <span class="tech-pill">Zapier AI</span>
+            <span class="tech-pill">Google Workspace</span>
+            <span class="tech-pill">Prompt Engineering</span>
+            <span class="tech-pill">Loom</span>
+            <span class="tech-pill">Carrd.co</span>
+          </div>
+          <a href="https://automyx.carrd.co" class="proj-link">View Live →</a>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2.2;color:#3a3a5c;">
+            <div><span style="color:#4f8ef7">trigger</span>: Form Submission</div>
+            <div style="padding-left:16px;color:#555">↓</div>
+            <div><span style="color:#00d4aa">action</span>: Add to Google Sheets</div>
+            <div style="padding-left:16px;color:#555">↓</div>
+            <div><span style="color:#c792ea">AI</span>: Generate Lead Summary</div>
+            <div style="padding-left:16px;color:#555">↓</div>
+            <div><span style="color:#e2a05a">notify</span>: Send Gmail Alert</div>
+            <div style="padding-left:16px;color:#555">↓</div>
+            <div><span style="color:#00d4aa">delay</span>: 3 Days</div>
+            <div style="padding-left:16px;color:#555">↓</div>
+            <div><span style="color:#4f8ef7">follow-up</span>: Auto Email</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-tag tag-green">Web Dev</div>
+        <div class="proj-title">Personal Portfolio Website</div>
+        <div class="proj-desc">This portfolio — built from scratch using HTML, CSS, and JavaScript. Fully responsive, dark-themed, and designed to professional standards.</div>
+        <div class="proj-techs">
+          <span class="tech-pill">HTML</span>
+          <span class="tech-pill">CSS</span>
+          <span class="tech-pill">JavaScript</span>
+        </div>
+        <a href="#" class="proj-link">GitHub →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-tag tag-amber">ML / Python</div>
+        <div class="proj-title">Lead Intelligence Script</div>
+        <div class="proj-desc">Python script that reads lead data from Google Sheets, cleans it using Pandas, and generates a weekly summary report with Matplotlib charts.</div>
+        <div class="proj-techs">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Pandas</span>
+          <span class="tech-pill">Matplotlib</span>
+        </div>
+        <a href="#" class="proj-link">GitHub →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">// 04. Background</div>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="av-name">Vansh Rawat</div>
+        <div class="av-title">AI & Web Developer · Delhi</div>
+        <div class="av-divider"></div>
+        <div class="av-row">
+          <div class="av-row-label">University</div>
+          <div class="av-row-val">Amity Online</div>
+        </div>
+        <div class="av-row">
+          <div class="av-row-label">Degree</div>
+          <div class="av-row-val">BCA · 2nd Year</div>
+        </div>
+        <div class="av-row">
+          <div class="av-row-label">Location</div>
+          <div class="av-row-val">Delhi, India</div>
+        </div>
+        <div class="av-row">
+          <div class="av-row-label">Venture</div>
+          <div class="av-row-val">Automyx</div>
+        </div>
+        <div class="av-row" style="border:none">
+          <div class="av-row-label">Status</div>
+          <div class="av-status">
+            <div class="status-dot"></div>
+            <div class="av-row-val">Open to Internships</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <p class="about-para">
+          I'm <strong>Vansh Rawat</strong>, a second-year BCA student at Amity University Online, Delhi. I'm passionate about building things that actually work — not just writing code for assignments, but deploying real solutions that real people use.
+        </p>
+        <p class="about-para">
+          I founded <strong>Automyx</strong> while in my second year — an AI automation service for small businesses in Delhi. This taught me more about software, clients, and problem-solving than any classroom could. I believe the best developers are the ones who ship.
+        </p>
+        <p class="about-para">
+          I'm actively building towards a professional internship at a leading tech or consulting firm — <strong>Infosys, Deloitte, HCL, or EXL</strong> — where I can contribute meaningfully from Day 1 and grow under experienced engineers and data scientists.
+        </p>
+
+        <div class="timeline-items">
+          <div class="tl-item">
+            <div class="tl-dot">🎓</div>
+            <div class="tl-body">
+              <div class="tl-year">2023 — Present</div>
+              <div class="tl-title">BCA · Amity University Online</div>
+              <div class="tl-sub">Computer Applications · Delhi · 2nd Year</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">⚡</div>
+            <div class="tl-body">
+              <div class="tl-year">2025 — Present</div>
+              <div class="tl-title">Founder · Automyx</div>
+              <div class="tl-sub">Built and launched AI automation consultancy for Delhi businesses using Zapier + AI</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🤖</div>
+            <div class="tl-body">
+              <div class="tl-year">2026 · In Progress</div>
+              <div class="tl-title">Google ML Crash Course</div>
+              <div class="tl-sub">Currently studying ML foundations — algorithms, pipelines, and model evaluation</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🎯</div>
+            <div class="tl-body">
+              <div class="tl-year">2026</div>
+              <div class="tl-title">Targeting Internship</div>
+              <div class="tl-sub">Infosys · Deloitte · HCL · EXL — AI/ML or Web Development track</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section id="certifications" style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">// 05. Credentials</div>
+      <h2 class="section-title">Certifications & Learning</h2>
+      <p class="section-sub">Earned certifications and active learning tracks — updated as I grow.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+      <!-- Earned -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent2),#00ff88);"></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+          <div style="font-size:28px;">⚡</div>
+          <div>
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);margin-bottom:4px;">✅ Completed</div>
+            <div style="font-size:17px;font-weight:700;color:#fff;">Zapier Automation Certification</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Completed the official Zapier Academy certification covering multi-step Zaps, AI by Zapier, Filters, Paths, and Formatter. Applied directly in building Automyx client workflows.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);">Zapier Academy · 2025</div>
+          <div style="font-size:11px;padding:4px 12px;background:#00d4aa18;border:1px solid #00d4aa30;color:var(--accent2);border-radius:4px;font-weight:600;">VERIFIED</div>
+        </div>
+      </div>
+
+      <!-- In Progress 1 -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#7c6af7);"></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+          <div style="font-size:28px;">🤖</div>
+          <div>
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:4px;">⏳ In Progress</div>
+            <div style="font-size:17px;font-weight:700;color:#fff;">Google ML Crash Course</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Actively working through Google's ML foundations — covering supervised learning, neural networks, feature engineering, and model evaluation.</div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <div style="font-size:11px;color:var(--muted);">Progress</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);">~40%</div>
+          </div>
+          <div style="height:3px;background:var(--border);border-radius:2px;">
+            <div style="width:40%;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;"></div>
+          </div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);">Google · 2026</div>
+      </div>
+
+      <!-- In Progress 2 -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e2a05a,#ff6b6b);"></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+          <div style="font-size:28px;">🐍</div>
+          <div>
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#e2a05a;margin-bottom:4px;">⏳ In Progress</div>
+            <div style="font-size:17px;font-weight:700;color:#fff;">Python for Data Science</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Learning Python fundamentals through freeCodeCamp — covering core syntax, functions, data structures, and beginner Pandas & NumPy for data manipulation.</div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <div style="font-size:11px;color:var(--muted);">Progress</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#e2a05a;">~30%</div>
+          </div>
+          <div style="height:3px;background:var(--border);border-radius:2px;">
+            <div style="width:30%;height:100%;background:linear-gradient(90deg,#e2a05a,#ff6b6b);border-radius:2px;"></div>
+          </div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);">freeCodeCamp · 2026</div>
+      </div>
+
+      <!-- Coming soon -->
+      <div style="background:var(--card);border:1px dashed var(--border);border-radius:12px;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:180px;">
+        <div style="font-size:28px;margin-bottom:12px;">🎯</div>
+        <div style="font-size:14px;font-weight:700;color:#333;margin-bottom:6px;">Next Certification</div>
+        <div style="font-size:12px;color:#2a2a3e;">DSA · HackerRank · Coming Soon</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Demo Videos -->
+<section id="demos" style="background:var(--bg);border-top:1px solid var(--border);">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">// 06. Live Demos</div>
+      <h2 class="section-title">Automyx in Action</h2>
+      <p class="section-sub">Watch real automation workflows built and delivered for clients. Demo videos coming soon.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:var(--surface);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-bottom:1px solid var(--border);">
+          <div style="width:52px;height:52px;border-radius:50%;background:#4f8ef718;border:1px solid #4f8ef740;display:flex;align-items:center;justify-content:center;font-size:20px;">▶</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;">RECORDING SOON</div>
+        </div>
+        <div style="padding:18px;">
+          <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;">Lead Capture → AI Summary</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Form submission → Google Sheets → AI summary → Gmail alert. Saves 2 hrs/day for sales teams.</div>
+          <div style="display:flex;gap:6px;margin-top:12px;">
+            <span style="font-size:10px;padding:3px 8px;background:#4f8ef712;border:1px solid #4f8ef730;color:var(--accent);border-radius:3px;">Zapier</span>
+            <span style="font-size:10px;padding:3px 8px;background:#4f8ef712;border:1px solid #4f8ef730;color:var(--accent);border-radius:3px;">AI</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:var(--surface);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-bottom:1px solid var(--border);">
+          <div style="width:52px;height:52px;border-radius:50%;background:#00d4aa18;border:1px solid #00d4aa40;display:flex;align-items:center;justify-content:center;font-size:20px;">▶</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;">RECORDING SOON</div>
+        </div>
+        <div style="padding:18px;">
+          <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;">Invoice + Follow-up Auto</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Order form → AI invoice → Gmail → 3-day delay → auto follow-up. Eliminates manual chasing.</div>
+          <div style="display:flex;gap:6px;margin-top:12px;">
+            <span style="font-size:10px;padding:3px 8px;background:#00d4aa12;border:1px solid #00d4aa30;color:var(--accent2);border-radius:3px;">Zapier</span>
+            <span style="font-size:10px;padding:3px 8px;background:#00d4aa12;border:1px solid #00d4aa30;color:var(--accent2);border-radius:3px;">Gmail</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="background:var(--surface);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-bottom:1px solid var(--border);">
+          <div style="width:52px;height:52px;border-radius:50%;background:#e2a05a18;border:1px solid #e2a05a40;display:flex;align-items:center;justify-content:center;font-size:20px;">▶</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;">RECORDING SOON</div>
+        </div>
+        <div style="padding:18px;">
+          <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;">Social Post + AI Captions</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Google Sheets → AI writes caption → Buffer schedules post. Full social automation in one Zap.</div>
+          <div style="display:flex;gap:6px;margin-top:12px;">
+            <span style="font-size:10px;padding:3px 8px;background:#e2a05a12;border:1px solid #e2a05a30;color:#e2a05a;border-radius:3px;">Buffer</span>
+            <span style="font-size:10px;padding:3px 8px;background:#e2a05a12;border:1px solid #e2a05a30;color:#e2a05a;border-radius:3px;">AI</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:24px;padding:16px;background:var(--card);border:1px dashed var(--border);border-radius:8px;">
+      <div style="font-size:13px;color:var(--muted);">🎥 Demo videos will be recorded on Loom and embedded here once Automyx demos are complete.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">// 07. Social Proof</div>
+      <h2 class="section-title">What People Say</h2>
+      <p class="section-sub">Testimonials from clients and collaborators.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+      <div style="background:var(--card);border:1px dashed var(--border);border-radius:12px;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;">
+        <div style="font-size:32px;margin-bottom:14px;">💬</div>
+        <div style="font-size:14px;font-weight:600;color:#2a2a40;margin-bottom:8px;">First Client Testimonial</div>
+        <div style="font-size:12px;color:#1e1e30;line-height:1.6;">Will be added after first Automyx delivery.<br/>Currently running free audits in Delhi.</div>
+      </div>
+
+      <div style="background:var(--card);border:1px dashed var(--border);border-radius:12px;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;">
+        <div style="font-size:32px;margin-bottom:14px;">⭐</div>
+        <div style="font-size:14px;font-weight:600;color:#2a2a40;margin-bottom:8px;">Upwork Review</div>
+        <div style="font-size:12px;color:#1e1e30;line-height:1.6;">Will be added after first Upwork project.<br/>Profile setup in progress.</div>
+      </div>
+
+    </div>
+
+    <!-- What's being built now -->
+    <div style="margin-top:24px;background:linear-gradient(135deg,#0a1520,#0a0f1a);border:1px solid #4f8ef720;border-radius:12px;padding:28px 32px;">
+      <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Currently Building →</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--accent2);animation:pulse 2s infinite;flex-shrink:0;"></div>
+          <div style="font-size:13px;color:var(--text);">3 Automyx demo automations</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s 0.3s infinite;flex-shrink:0;"></div>
+          <div style="font-size:13px;color:var(--text);">4 GitHub repos with real code</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#e2a05a;animation:pulse 2s 0.6s infinite;flex-shrink:0;"></div>
+          <div style="font-size:13px;color:var(--text);">First ML project in Python</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">// 08. Let's Connect</div>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-sub">Open to internship opportunities, collaborations, and conversations about AI and automation.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <p>Whether you're a recruiter, a fellow developer, or a business owner in Delhi — I'd love to connect. Drop a message and I'll get back to you within 24 hours.</p>
+        <div class="contact-links">
+          <a href="/cdn-cgi/l/email-protection#a6d0c7c8d5cee6c3cbc7cfca88c5c9cb" class="contact-link">
+            <div class="cl-icon">📧</div>
+            <div>
+              <div class="cl-label">Email</div>
+              <div class="cl-val"><span class="__cf_email__" data-cfemail="3046515e435870555d51595c1e535f5d">[email&#160;protected]</span></div>
+            </div>
+          </a>
+          <a href="https://github.com/vanshrawat" class="contact-link">
+            <div class="cl-icon">🐙</div>
+            <div>
+              <div class="cl-label">GitHub</div>
+              <div class="cl-val">github.com/vanshrawat</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/vanshrawat" class="contact-link">
+            <div class="cl-icon">💼</div>
+            <div>
+              <div class="cl-label">LinkedIn</div>
+              <div class="cl-val">linkedin.com/in/vanshrawat</div>
+            </div>
+          </a>
+          <a href="https://automyx.carrd.co" class="contact-link">
+            <div class="cl-icon">🌐</div>
+            <div>
+              <div class="cl-label">Automyx</div>
+              <div class="cl-val">automyx.carrd.co</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="contact-form">
+          <div class="form-field">
+            <label>Your Name</label>
+            <input type="text" placeholder="John Smith"/>
+          </div>
+          <div class="form-field">
+            <label>Email</label>
+            <input type="email" placeholder="john@company.com"/>
+          </div>
+          <div class="form-field">
+            <label>Message</label>
+            <textarea placeholder="I'd like to discuss an internship opportunity..."></textarea>
+          </div>
+          <button class="form-submit" onclick="alert('Message sent! Vansh will be in touch shortly.')">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-mono">© 2026 Vansh Rawat · Delhi, India</div>
+  <div>Designed & Built by <span style="color:var(--accent)">Vansh Rawat</span> · Powered by <span style="color:var(--accent2)">Lisa ⚡</span></div>
+</footer>
+
+<script>
+(function() {
+  // Only run on devices with a real mouse
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
+  var dot  = document.getElementById('cursor');
+  var ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  // Hide native cursor everywhere
+  var styleTag = document.createElement('style');
+  styleTag.innerHTML = '*, *::before, *::after { cursor: none !important; }';
+  document.head.appendChild(styleTag);
+
+  var mx = window.innerWidth / 2;
+  var my = window.innerHeight / 2;
+  var rx = mx, ry = my;
+  var visible = false;
+
+  // Move dot instantly
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+    if (!visible) {
+      visible = true;
+      dot.style.opacity  = '1';
+      ring.style.opacity = '1';
+    }
+  });
+
+  // Ring follows with smooth lag
+  function tick() {
+    rx += (mx - rx) * 0.13;
+    ry += (my - ry) * 0.13;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  // Grow on interactive elements
+  document.addEventListener('mouseover', function(e) {
+    var t = e.target.closest('a, button, [role="button"]');
+    if (t) {
+      dot.style.width      = '16px';
+      dot.style.height     = '16px';
+      dot.style.background = '#00d4aa';
+      ring.style.width     = '56px';
+      ring.style.height    = '56px';
+      ring.style.borderColor = 'rgba(0,212,170,0.5)';
+    }
+  });
+  document.addEventListener('mouseout', function(e) {
+    var t = e.target.closest('a, button, [role="button"]');
+    if (t) {
+      dot.style.width      = '10px';
+      dot.style.height     = '10px';
+      dot.style.background = '#4f8ef7';
+      ring.style.width     = '36px';
+      ring.style.height    = '36px';
+      ring.style.borderColor = 'rgba(79,142,247,0.5)';
+    }
+  });
+
+  // Click shrink effect
+  document.addEventListener('mousedown', function() {
+    dot.style.transform = 'translate(-50%,-50%) scale(0.5)';
+  });
+  document.addEventListener('mouseup', function() {
+    dot.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+
+  // Hide when mouse leaves window
+  document.addEventListener('mouseleave', function() {
+    dot.style.opacity  = '0';
+    ring.style.opacity = '0';
+    visible = false;
+  });
+  document.addEventListener('mouseenter', function() {
+    dot.style.opacity  = '1';
+    ring.style.opacity = '1';
+    visible = true;
+  });
+})();
+
+// ── Scroll Reveal ──────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity   = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.skill-block, .project-card, .tl-item, .contact-link').forEach(el => {
+  el.style.opacity    = '0';
+  el.style.transform  = 'translateY(24px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
